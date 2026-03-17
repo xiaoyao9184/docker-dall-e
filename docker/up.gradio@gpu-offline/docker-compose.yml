@@ -1,0 +1,21 @@
+
+
+services:
+  dall-e_gradio:
+    image: xiaoyao9184/dall-e:master
+    container_name: dall-e-gradio
+    working_dir: /workspace/gradio
+    command: gradio gradio_app.py
+    ports:
+      - "7860:7860"
+    environment:
+      - APP_PATH=/app
+      - CHECKPOINT_MODEL_PATH=/root/.cache/models
+    volumes:
+      - ./../../cache:/root/.cache
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [ gpu ]

@@ -1,0 +1,8 @@
+
+
+services:
+  dall-e_notebook:
+    image: xiaoyao9184/dall-e:master
+    container_name: dall-e_notebook
+    ports:
+      - "8888:8888"

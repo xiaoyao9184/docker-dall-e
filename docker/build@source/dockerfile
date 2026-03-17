@@ -1,0 +1,25 @@
+FROM pytorch/pytorch:1.7.1-cuda11.0-cudnn8-runtime
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install --upgrade pip
+
+COPY ./docker/build@source/requirements.txt /app/requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+COPY ./DALL-E /app
+RUN pip3 install --no-cache-dir -e . --no-deps
+
+COPY ./gradio /workspace/gradio
+
+EXPOSE 8888
+EXPOSE 7860
+
+VOLUME /root/.cache
+
+CMD ["jupyter", "notebook", "--allow-root", "--ip", "0.0.0.0"]
