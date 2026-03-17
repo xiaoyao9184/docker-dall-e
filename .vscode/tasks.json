@@ -1,0 +1,106 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "docker: compose up.gradio@gpu-offline",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/docker/up.gradio@gpu-offline/"
+            },
+            "dependsOn": [
+                "docker: build master"
+            ],
+            "command": "docker compose -p dall-e up"
+        },
+        {
+            "label": "docker: compose up.notebook@cpu-online",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/docker/up.notebook@cpu-online/"
+            },
+            "dependsOn": [
+                "docker: build master"
+            ],
+            "command": "docker compose -p dall-e up"
+        },
+        {
+            "label": "docker: build master",
+            "type": "shell",
+            "command": "docker build -t xiaoyao9184/dall-e:master -f ./docker/build@source/dockerfile ."
+        },
+        {
+            "label": "conda: gradio python",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    "APP_PATH": "${workspaceFolder}/DALL-E",
+                    "CHECKPOINT_MODEL_PATH": "${workspaceFolder}/cache/models"
+                }
+            },
+            "dependsOn": [
+                "conda: create env"
+            ],
+            "command": [
+                "conda run --no-capture-output -n dall-e python gradio/gradio_app.py"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "huggingface-cli: download models",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}",
+                "env": {
+                    // "HF_ENDPOINT": "https://hf-mirror.com",
+                    // "HF_HUB_ETAG_TIMEOUT": "1000",
+                    // "HF_HUB_DOWNLOAD_TIMEOUT": "1000"
+                }
+            },
+            "command": "hf download --revision master --cache-dir ./cache/huggingface/hub --local-dir ./cache/models xiaoyao9184/dall-e"
+        },
+        // {
+        //     "label": "huggingface-cli: upload models",
+        //     "type": "shell",
+        //     "command": [
+        //         "hf upload --repo-type model --revision master xiaoyao9184/dall-e ${workspaceFolder}/DALL-E/encoder.pth",
+        //         "&& hf upload --repo-type model --revision master xiaoyao9184/dall-e ${workspaceFolder}/DALL-E/decoder.pth"
+        //     ]
+        // },
+        {
+            "label": "conda: wget download dall-e checkpoint",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/cache/models"
+            },
+            "dependsOn": [
+                "conda: create env"
+            ],
+            "command": [
+                "conda run --no-capture-output -n dall-e python -m wget https://cdn.openai.com/dall-e/encoder.pkl -o ./encoder.pkl",
+                "&& conda run --no-capture-output -n dall-e python -m wget https://cdn.openai.com/dall-e/decoder.pkl -o ./decoder.pkl"
+            ]
+        },
+        {
+            "label": "conda: jupyter run usage notebook",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/DALL-E",
+            },
+            "dependsOn": [
+                "conda: create env"
+            ],
+            "command": [
+                "conda run --no-capture-output -n dall-e jupyter notebook ./notebooks/usage.ipynb"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "conda: create env",
+            "type": "shell",
+            "command": [
+                "conda env create -f ./environment.yml"
+            ]
+        }
+    ]
+}

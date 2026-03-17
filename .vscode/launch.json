@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "debugpy: gradio python",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/gradio/gradio_run.py",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "${workspaceFolder}/gradio/gradio_app.py"
+            ],
+            "env": {
+                "APP_PATH": "${workspaceFolder}/DALL-E",
+                "CHECKPOINT_MODEL_PATH": "${workspaceFolder}/cache/models"
+            },
+            "justMyCode": false
+        }
+    ]
+}
