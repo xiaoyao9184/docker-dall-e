@@ -151,7 +151,7 @@ if '__main__' == __name__:
 
         Find the original project [here](https://github.com/openai/DALL-E).
         Or this project [here](https://github.com/xiaoyao9184/docker-dall-e).
-        See the [README](./blob/main/README.md) for Spaces's metadata.
+        See the [README](https://huggingface.co/spaces/xiaoyao9184/dall-e/blob/main/README.md) for Spaces's metadata.
         """)
 
         with gr.Tabs():

@@ -2,7 +2,7 @@
 
 A Docker image built through Github Actions with Git commit version tag
 
-[![Docker Image Build/Publish tag with commit](https://github.com/xiaoyao9184/docker-dall-e/actions/workflows/docker-image-tag-commit.yml/badge.svg)](https://github.com/xiaoyao9184/docker-dall-e/actions/workflows/docker-image-tag-commit.yml) [![](https://img.shields.io/docker/v/xiaoyao9184/dalle)](https://hub.docker.com/r/xiaoyao9184/dalle)
+[![Docker Image Build/Publish tag with commit](https://github.com/xiaoyao9184/docker-dall-e/actions/workflows/docker-image-tag-commit.yml/badge.svg)](https://github.com/xiaoyao9184/docker-dall-e/actions/workflows/docker-image-tag-commit.yml) [![](https://img.shields.io/docker/v/xiaoyao9184/dalle)](https://hub.docker.com/r/xiaoyao9184/dall-e)
 
 [![HuggingFace Space Sync](https://github.com/xiaoyao9184/docker-dall-e/actions/workflows/hf-space-sync.yml/badge.svg)](https://github.com/xiaoyao9184/docker-dall-e/actions/workflows/hf-space-sync.yml) [![](https://img.shields.io/badge/HuggingFace-space-ff9f44?logo=huggingface)](https://huggingface.co/spaces/xiaoyao9184/dall-e)
 
